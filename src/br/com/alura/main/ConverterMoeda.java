@@ -1,3 +1,5 @@
+package br.com.alura.main;
+
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
@@ -8,11 +10,12 @@ import com.google.gson.JsonElement;
 
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
-
+import io.github.cdimascio.dotenv.Dotenv;
 
 public class ConverterMoeda {
     public static void converter(String from, String to) {
-        String key = "1a08df1d708644d0b484422a";
+        Dotenv dotenv = Dotenv.load();
+        String key = dotenv.get("EXCHANGE_RATE_API_KEY");
 
         try {
             String url_str = STR."https://v6.exchangerate-api.com/v6/\{key}/latest/\{from}";
@@ -38,7 +41,7 @@ public class ConverterMoeda {
 
             System.out.println(STR."\{valor} \{from} equivale a \{resultado} \{to}");
         } catch (Exception e) {
-            e.printStackTrace();
+            System.out.println(e.getMessage());
         }
     }
 
